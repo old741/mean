@@ -1,0 +1,2 @@
+  <span fxFlex="auto"></span> = prend tout l'espace disponible
+  <mat-toolbar fxLayoutGap="15px"> fxLayoutGap="15px" = ajoute de l'espace sur les items flex
