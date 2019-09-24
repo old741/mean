@@ -33,17 +33,20 @@ export class AuthService {
   
 
   public signup(user:User):Observable<User> {
-    return this.httpClient.post<User>('/api/auth',user); 
+    return this.httpClient.post<User>('/api/auth/signup',user); 
   }
   // A revoir correctement
+  // pipe = operateur si un bservable
+  // tap recupere la data qui parcour la chaine d'observable nous permet juste d'exuecuter une action comme si il n'éxistait pas
   public signin(credentials:{email:string,password:string}):Observable<string>{
-    return this.httpClient.post<string>('/api/auth/token',credentials).pipe(
+    return this.httpClient.post<string>('/api/auth/signin',credentials).pipe(
       tap( (token:string)=>{
         this.jwtToken.next({
           isAuthenticated:true,
           token: token
         });
-        // méthode pas safe
+        // méthode pas safe stockage sur l'ordinateur client 
+
         localStorage.setItem('jwt',token)
       })
     )

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/share/services/auth.service';
-import {User } from '../../share/models/user.model';
+import { User } from '../../share/models/user.model';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.form= this.fb.group({
-      email:['',Validators.email],
+      email:[''],
       name:[''],
       password:['']
     })
@@ -30,6 +30,7 @@ export class SignupComponent implements OnInit {
       // ca marche donc redirection sur la page de connexion
       this.router.navigate(['/signin'])
     },err =>{
+      console.log('[err] = ', err)
       this.error = err;
     });
     console.log(this.form.value)

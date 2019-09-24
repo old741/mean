@@ -11,7 +11,7 @@
         <mat-form-field>
           <input matInput type="password" placeholder="mot de passe" formControlName="password">
         </mat-form-field>
-        <div *ngIf="error">{{ error }}</div>
+        <div *ngIf="error"><pre>{{ error }}</pre></div>
           <button (click)="submit()" color="primary" mat-raised-button>Inscription</button>
       </form>
     </mat-card-content>

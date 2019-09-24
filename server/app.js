@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
-
 var app = express();
+const index= require('./routes/index');
 
 
 app.use(logger('dev'));
@@ -19,7 +19,8 @@ mongoose.connect('mongodb+srv://toto:789456aze@angulardyma-mczpu.mongodb.net/tes
 ,{ 
     keepAlive:true,
     reconnectTries: Number.MAX_VALUE,
-    useNewUrlParser: true 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   } ,(err)=>{
   if(err){
     console.log('Connection erreur : '+ err);
@@ -35,5 +36,5 @@ app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname, '../public/index.html'))// Notre application angular est situé dans notre dossier public un cran au dessus
 });
 
-
+app.use(index);
 module.exports = app;

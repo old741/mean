@@ -274,7 +274,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"my-5 py-5\" fxLayout=\"row\" fxLayoutAlign=\"center center\">\r\n  <mat-card>Inscription\r\n    <mat-card-content>\r\n      <form [formGroup]=\"form\" fxLayout=\"column\" fxLayoutGap=\"15px\">\r\n        <mat-form-field>\r\n              <input matInput type=\"email\" placeholder=\"email\" formControlName=\"email\">\r\n            </mat-form-field>\r\n        <mat-form-field>\r\n          <input matInput type=\"name\" placeholder=\"name\" formControlName=\"name\">\r\n        </mat-form-field>\r\n        <mat-form-field>\r\n          <input matInput type=\"password\" placeholder=\"mot de passe\" formControlName=\"password\">\r\n        </mat-form-field>\r\n        <div *ngIf=\"error\">{{ error }}</div>\r\n          <button (click)=\"submit()\" color=\"primary\" mat-raised-button>Inscription</button>\r\n      </form>\r\n    </mat-card-content>\r\n  </mat-card>\r\n</div>"
+module.exports = "<div class=\"my-5 py-5\" fxLayout=\"row\" fxLayoutAlign=\"center center\">\r\n  <mat-card>Inscription\r\n    <mat-card-content>\r\n      <form [formGroup]=\"form\" fxLayout=\"column\" fxLayoutGap=\"15px\">\r\n        <mat-form-field>\r\n              <input matInput type=\"email\" placeholder=\"email\" formControlName=\"email\">\r\n            </mat-form-field>\r\n        <mat-form-field>\r\n          <input matInput type=\"name\" placeholder=\"name\" formControlName=\"name\">\r\n        </mat-form-field>\r\n        <mat-form-field>\r\n          <input matInput type=\"password\" placeholder=\"mot de passe\" formControlName=\"password\">\r\n        </mat-form-field>\r\n        <div *ngIf=\"error\"><pre>{{ error }}</pre></div>\r\n          <button (click)=\"submit()\" color=\"primary\" mat-raised-button>Inscription</button>\r\n      </form>\r\n    </mat-card-content>\r\n  </mat-card>\r\n</div>"
 
 /***/ }),
 
@@ -306,7 +306,7 @@ var SignupComponent = /** @class */ (function () {
     }
     SignupComponent.prototype.ngOnInit = function () {
         this.form = this.fb.group({
-            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email],
+            email: [''],
             name: [''],
             password: ['']
         });
@@ -317,6 +317,7 @@ var SignupComponent = /** @class */ (function () {
             // ca marche donc redirection sur la page de connexion
             _this.router.navigate(['/signin']);
         }, function (err) {
+            console.log('[err] = ', err);
             _this.error = err;
         });
         console.log(this.form.value);
@@ -477,17 +478,19 @@ var AuthService = /** @class */ (function () {
         }
     };
     AuthService.prototype.signup = function (user) {
-        return this.httpClient.post('/api/auth', user);
+        return this.httpClient.post('/api/auth/signup', user);
     };
     // A revoir correctement
+    // pipe = operateur si un bservable
+    // tap recupere la data qui parcour la chaine d'observable nous permet juste d'exuecuter une action comme si il n'éxistait pas
     AuthService.prototype.signin = function (credentials) {
         var _this = this;
-        return this.httpClient.post('/api/auth/token', credentials).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (token) {
+        return this.httpClient.post('/api/auth/signin', credentials).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (token) {
             _this.jwtToken.next({
                 isAuthenticated: true,
                 token: token
             });
-            // méthode pas safe
+            // méthode pas safe stockage sur l'ordinateur client 
             localStorage.setItem('jwt', token);
         }));
     };
@@ -624,7 +627,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\dodo\Documents\Informatique\Angular 7\mean\client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\dev\Angular\mean\client\src\main.ts */"./src/main.ts");
 
 
 /***/ })
