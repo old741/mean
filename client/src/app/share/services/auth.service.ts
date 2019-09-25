@@ -29,6 +29,7 @@ export class AuthService {
         isAuthenticated:false,token:null
       });
       }
+      console.log(this.jwtToken.value);
     }
   
 
@@ -50,5 +51,12 @@ export class AuthService {
         localStorage.setItem('jwt',token)
       })
     )
+  }
+
+  public logout():void{
+    this.jwtToken.next({ 
+      isAuthenticated:false,token:null
+    });
+    localStorage.removeItem('jwt');
   }
 }

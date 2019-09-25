@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/signin'])
     },err =>{
       console.log('[err] = ', err)
-      this.error = err;
+      this.error = err.error;
     });
     console.log(this.form.value)
   }

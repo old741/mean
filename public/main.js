@@ -57,10 +57,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _share_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./share/services/auth.service */ "./src/app/share/services/auth.service.ts");
+
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(authService) {
+        this.authService = authService;
         this.title = 'client';
     }
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -68,7 +71,8 @@ var AppComponent = /** @class */ (function () {
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_share_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -196,7 +200,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"my-5 py-5\" fxLayout=\"row\" fxLayoutAlign=\"center center\">\r\n  <mat-card>Connexion\r\n    <mat-card-content>\r\n      <form [formGroup]=\"form\" fxLayout=\"column\" fxLayoutGap=\"15px\">\r\n        <mat-form-field>\r\n          <input matInput type=\"email\" placeholder=\"email\" formControlName=\"email\">\r\n        </mat-form-field>\r\n        <mat-form-field>\r\n          <input matInput type=\"password\" placeholder=\"mot de passe\" formControlName=\"password\">\r\n        </mat-form-field>\r\n        <div *ngIf=\"error\">{{ error }}</div>\r\n        <button (click)=\"submit()\" color=\"primary\" mat-raised-button>Connexion</button>\r\n      </form>\r\n    </mat-card-content>\r\n  </mat-card>\r\n</div>"
+module.exports = "<div class=\"my-5 py-5\" fxLayout=\"row\" fxLayoutAlign=\"center center\">\r\n  <mat-card>Connexion\r\n    <mat-card-content>\r\n      <form [formGroup]=\"form\" fxLayout=\"column\" fxLayoutGap=\"15px\">\r\n        <mat-form-field>\r\n          <input matInput type=\"email\" placeholder=\"email\" formControlName=\"email\">\r\n        </mat-form-field>\r\n        <mat-form-field>\r\n          <input matInput type=\"password\" placeholder=\"mot de passe\" formControlName=\"password\">\r\n        </mat-form-field>\r\n        <div style=\"color: red;\" *ngIf=\"error\">{{ error }}</div>\r\n        <button (click)=\"submit()\" color=\"primary\" mat-raised-button>Connexion</button>\r\n      </form>\r\n    </mat-card-content>\r\n  </mat-card>\r\n</div>"
 
 /***/ }),
 
@@ -237,7 +241,7 @@ var SigninComponent = /** @class */ (function () {
         console.log(this.form.value);
         this.authService.signin(this.form.value).subscribe(function () {
             _this.router.navigate(['/']);
-        }, function (err) { _this.error = err; });
+        }, function (err) { _this.error = err.error; });
     };
     SigninComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -318,7 +322,7 @@ var SignupComponent = /** @class */ (function () {
             _this.router.navigate(['/signin']);
         }, function (err) {
             console.log('[err] = ', err);
-            _this.error = err;
+            _this.error = err.error;
         });
         console.log(this.form.value);
     };
@@ -476,6 +480,7 @@ var AuthService = /** @class */ (function () {
                 isAuthenticated: false, token: null
             });
         }
+        console.log(this.jwtToken.value);
     };
     AuthService.prototype.signup = function (user) {
         return this.httpClient.post('/api/auth/signup', user);
@@ -493,6 +498,12 @@ var AuthService = /** @class */ (function () {
             // méthode pas safe stockage sur l'ordinateur client 
             localStorage.setItem('jwt', token);
         }));
+    };
+    AuthService.prototype.logout = function () {
+        this.jwtToken.next({
+            isAuthenticated: false, token: null
+        });
+        localStorage.removeItem('jwt');
     };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -525,7 +536,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar fxLayoutGap=\"15px\">\r\n  <span class=\"link\" routerLink=\"/\">Mon Logo</span>\r\n  <span fxFlex=\"auto\"></span>\r\n  <span class=\"link\" routerLink=\"/signin\">Connexion</span>\r\n  <span class=\"link\" routerLink=\"/signup\">Inscription</span>\r\n\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar fxLayoutGap=\"15px\">\r\n  <span class=\"link\" routerLink=\"/\">Mon Logo</span>\r\n  <span fxFlex=\"auto\"></span>\r\n  <span *ngIf=\"!jwtToken.isAuthenticated\">\r\n    <span class=\"link\" routerLink=\"/signin\">Connexion</span>\r\n    <span class=\"link\" routerLink=\"/signup\">Inscription</span>\r\n  </span>\r\n  <span *ngIf=\"jwtToken.isAuthenticated\" (click)=\"logout()\">\r\n    <span class=\"link\">Déconnexion</span>\r\n  </span>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -541,12 +552,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopbarComponent", function() { return TopbarComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/share/services/auth.service.ts");
+
 
 
 var TopbarComponent = /** @class */ (function () {
-    function TopbarComponent() {
+    function TopbarComponent(authService) {
+        this.authService = authService;
     }
     TopbarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.subscription = this.authService.jwtToken.subscribe(function (jwtToken) {
+            _this.jwtToken = jwtToken;
+        });
+    };
+    TopbarComponent.prototype.ngOnDestroy = function () {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    };
+    TopbarComponent.prototype.logout = function () {
+        this.authService.logout();
     };
     TopbarComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -554,7 +580,7 @@ var TopbarComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./topbar.component.html */ "./src/app/share/topbar/topbar.component.html"),
             styles: [__webpack_require__(/*! ./topbar.component.css */ "./src/app/share/topbar/topbar.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
     ], TopbarComponent);
     return TopbarComponent;
 }());
@@ -627,7 +653,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\dev\Angular\mean\client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\dodo\Documents\Informatique\Angular 7\mean\client\src\main.ts */"./src/main.ts");
 
 
 /***/ })

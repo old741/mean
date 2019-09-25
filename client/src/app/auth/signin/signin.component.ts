@@ -27,7 +27,7 @@ export class SigninComponent implements OnInit {
     console.log(this.form.value)
     this.authService.signin(this.form.value).subscribe( () =>{
       this.router.navigate(['/']);
-    }, err =>{ this.error=err}
+    }, err =>{ this.error=err.error}
     )
     }
 }

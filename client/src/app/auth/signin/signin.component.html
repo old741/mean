@@ -8,7 +8,7 @@
         <mat-form-field>
           <input matInput type="password" placeholder="mot de passe" formControlName="password">
         </mat-form-field>
-        <div *ngIf="error">{{ error }}</div>
+        <div style="color: red;" *ngIf="error">{{ error }}</div>
         <button (click)="submit()" color="primary" mat-raised-button>Connexion</button>
       </form>
     </mat-card-content>
