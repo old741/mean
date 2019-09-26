@@ -21,13 +21,19 @@ import {APP_ROUTING } from './app.routing';
 
 // services
 import { AuthService}  from "./share/services/auth.service";
+import { ProfileComponent } from './profile/profile.component';
+
+//guards
+import { AuthGuard } from './share/guards/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     SignupComponent,
     SigninComponent,
-    TopbarComponent
+    TopbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,7 @@ import { AuthService}  from "./share/services/auth.service";
     RouterModule.forRoot(APP_ROUTING),
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

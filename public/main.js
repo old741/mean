@@ -536,7 +536,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar fxLayoutGap=\"15px\">\r\n  <span class=\"link\" routerLink=\"/\">Mon Logo</span>\r\n  <span fxFlex=\"auto\"></span>\r\n  <span *ngIf=\"!jwtToken.isAuthenticated\">\r\n    <span class=\"link\" routerLink=\"/signin\">Connexion</span>\r\n    <span class=\"link\" routerLink=\"/signup\">Inscription</span>\r\n  </span>\r\n  <span *ngIf=\"jwtToken.isAuthenticated\" (click)=\"logout()\">\r\n    <span class=\"link\">Déconnexion</span>\r\n  </span>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar>\r\n  <span class=\"link\" routerLink=\"/\">Mon Logo</span>\r\n  <span fxFlex=\"auto\"></span>\r\n   \r\n      <span *ngIf=\"!jwtToken.isAuthenticated\">\r\n    <span fxLayoutGap=\"15px\">\r\n       <span class=\"link\" routerLink=\"/signin\">Connexion</span>\r\n      <span class=\"link\" routerLink=\"/signup\">Inscription</span>\r\n    </span>\r\n      </span>\r\n      <span *ngIf=\"jwtToken.isAuthenticated\">\r\n      <span class=\"link\">Déconnexion</span>\r\n    </span>\r\n  </div>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -653,7 +653,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\dodo\Documents\Informatique\Angular 7\mean\client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\dev\Angular\mean\client\src\main.ts */"./src/main.ts");
 
 
 /***/ })
