@@ -15,13 +15,14 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { TopbarComponent } from './share/topbar/topbar.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // routing
 import {APP_ROUTING } from './app.routing';
 
 // services
 import { AuthService}  from "./share/services/auth.service";
-import { ProfileComponent } from './profile/profile.component';
+import { UserService } from './share/services/user.service';
 
 //guards
 import { AuthGuard } from './share/guards/auth.guard';
@@ -43,7 +44,7 @@ import { AuthGuard } from './share/guards/auth.guard';
     RouterModule.forRoot(APP_ROUTING),
     ReactiveFormsModule
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService,UserService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
