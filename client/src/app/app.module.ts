@@ -1,7 +1,7 @@
 // Module natifs
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -27,6 +27,10 @@ import { UserService } from './share/services/user.service';
 //guards
 import { AuthGuard } from './share/guards/auth.guard';
 
+//interceptors
+import { AuthInterceptor } from './share/interceptors/auth.interceptor';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +48,14 @@ import { AuthGuard } from './share/guards/auth.guard';
     RouterModule.forRoot(APP_ROUTING),
     ReactiveFormsModule
   ],
-  providers: [AuthService,UserService,AuthGuard],
+  providers: [ 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass:AuthInterceptor,
+      multi:true
+    },
+  AuthService,UserService,AuthGuard
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

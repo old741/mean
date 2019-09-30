@@ -29,6 +29,7 @@ mongoose.connect('mongodb+srv://toto:789456aze@angulardyma-mczpu.mongodb.net/tes
   }
 })
 
+app.use(index);
 // * pour récupérer toutes les requetes entrantes
 // res pour response 
 // le but est de retourné notre application angular quelque soit la requete entrantes 
@@ -36,5 +37,4 @@ app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname, '../public/index.html'))// Notre application angular est situé dans notre dossier public un cran au dessus
 });
 
-app.use(index);
 module.exports = app;

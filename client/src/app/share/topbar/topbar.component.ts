@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { JwtToken } from '../models/jwt-token.model';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -12,7 +13,7 @@ export class TopbarComponent implements OnInit,OnDestroy {
 
   public jwtToken:JwtToken;
   public subscription:Subscription
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private router:Router) { }
 
   ngOnInit() {
     this.subscription= this.authService.jwtToken.subscribe((jwtToken:JwtToken) =>{
@@ -28,5 +29,6 @@ export class TopbarComponent implements OnInit,OnDestroy {
 
   public logout():void{
     this.authService.logout();
+
   }
 }

@@ -104,8 +104,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_signup_signup_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./auth/signup/signup.component */ "./src/app/auth/signup/signup.component.ts");
 /* harmony import */ var _auth_signin_signin_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./auth/signin/signin.component */ "./src/app/auth/signin/signin.component.ts");
 /* harmony import */ var _share_topbar_topbar_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./share/topbar/topbar.component */ "./src/app/share/topbar/topbar.component.ts");
-/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
-/* harmony import */ var _share_services_auth_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./share/services/auth.service */ "./src/app/share/services/auth.service.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
+/* harmony import */ var _share_services_auth_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./share/services/auth.service */ "./src/app/share/services/auth.service.ts");
+/* harmony import */ var _share_services_user_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./share/services/user.service */ "./src/app/share/services/user.service.ts");
+/* harmony import */ var _share_guards_auth_guard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./share/guards/auth.guard */ "./src/app/share/guards/auth.guard.ts");
+/* harmony import */ var _share_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./share/interceptors/auth.interceptor */ "./src/app/share/interceptors/auth.interceptor.ts");
 
 // Module natifs
 
@@ -122,9 +126,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 // routing
 
 // services
+
+
+//guards
+
+//interceptors
 
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -136,17 +146,25 @@ var AppModule = /** @class */ (function () {
                 _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_9__["HomepageComponent"],
                 _auth_signup_signup_component__WEBPACK_IMPORTED_MODULE_10__["SignupComponent"],
                 _auth_signin_signin_component__WEBPACK_IMPORTED_MODULE_11__["SigninComponent"],
-                _share_topbar_topbar_component__WEBPACK_IMPORTED_MODULE_12__["TopbarComponent"]
+                _share_topbar_topbar_component__WEBPACK_IMPORTED_MODULE_12__["TopbarComponent"],
+                _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
                 _share_layout_layout_module__WEBPACK_IMPORTED_MODULE_6__["LayoutModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(_app_routing__WEBPACK_IMPORTED_MODULE_13__["APP_ROUTING"]),
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(_app_routing__WEBPACK_IMPORTED_MODULE_14__["APP_ROUTING"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"]
             ],
-            providers: [_share_services_auth_service__WEBPACK_IMPORTED_MODULE_14__["AuthService"]],
+            providers: [
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                    useClass: _share_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_18__["AuthInterceptor"],
+                    multi: true
+                },
+                _share_services_auth_service__WEBPACK_IMPORTED_MODULE_15__["AuthService"], _share_services_user_service__WEBPACK_IMPORTED_MODULE_16__["UserService"], _share_guards_auth_guard__WEBPACK_IMPORTED_MODULE_17__["AuthGuard"]
+            ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
     ], AppModule);
@@ -170,6 +188,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./homepage/homepage.component */ "./src/app/homepage/homepage.component.ts");
 /* harmony import */ var _auth_signup_signup_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth/signup/signup.component */ "./src/app/auth/signup/signup.component.ts");
 /* harmony import */ var _auth_signin_signin_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth/signin/signin.component */ "./src/app/auth/signin/signin.component.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _share_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./share/guards/auth.guard */ "./src/app/share/guards/auth.guard.ts");
+
+
 
 
 
@@ -177,6 +199,7 @@ var APP_ROUTING = [
     { path: '', component: _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_0__["HomepageComponent"] },
     { path: 'signup', component: _auth_signup_signup_component__WEBPACK_IMPORTED_MODULE_1__["SignupComponent"] },
     { path: 'signin', component: _auth_signin_signin_component__WEBPACK_IMPORTED_MODULE_2__["SigninComponent"] },
+    { path: 'profile', canActivate: [_share_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]], component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_3__["ProfileComponent"] },
 ];
 
 
@@ -399,6 +422,143 @@ var HomepageComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/profile/profile.component.css":
+/*!***********************************************!*\
+  !*** ./src/app/profile/profile.component.css ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Byb2ZpbGUvcHJvZmlsZS5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.html":
+/*!************************************************!*\
+  !*** ./src/app/profile/profile.component.html ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"my-5 py-5\" fxLayout=\"row\" fxLayoutAlign=\"center center\">\n    <mat-card>\n      <mat-card-title>Mon compte</mat-card-title>\n      <!-- pipe asyn apres un let user Stock la valeur de l'observable dans user\n      avantage pipe async pas besoin de géré le unsubscribe destroy fait automatiquement -->\n      <mat-card-content *ngIf=\"currentUser | async;let user;\" fxLayout=\"column\" fxLayoutGap=\"20px\">\n        <div>email : {{ user.email }} </div>\n        <div>name : {{ user.name }} </div>\n      </mat-card-content>\n    </mat-card>\n  </div>\n"
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/profile/profile.component.ts ***!
+  \**********************************************/
+/*! exports provided: ProfileComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _share_services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../share/services/user.service */ "./src/app/share/services/user.service.ts");
+
+
+
+var ProfileComponent = /** @class */ (function () {
+    function ProfileComponent(userService) {
+        this.userService = userService;
+    }
+    ProfileComponent.prototype.ngOnInit = function () {
+        this.currentUser = this.userService.getCurentUser();
+    };
+    ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-profile',
+            template: __webpack_require__(/*! ./profile.component.html */ "./src/app/profile/profile.component.html"),
+            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/profile/profile.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_share_services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
+    ], ProfileComponent);
+    return ProfileComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/share/guards/auth.guard.ts":
+/*!********************************************!*\
+  !*** ./src/app/share/guards/auth.guard.ts ***!
+  \********************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/share/services/auth.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(authService) {
+        this.authService = authService;
+    }
+    AuthGuard.prototype.canActivate = function (next, state) {
+        // la fonction ci dessous retourne un Observable
+        return this.authService.jwtToken.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (jwtToken) {
+            return jwtToken.isAuthenticated;
+        }));
+    };
+    AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
+    ], AuthGuard);
+    return AuthGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/share/interceptors/auth.interceptor.ts":
+/*!********************************************************!*\
+  !*** ./src/app/share/interceptors/auth.interceptor.ts ***!
+  \********************************************************/
+/*! exports provided: AuthInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthInterceptor", function() { return AuthInterceptor; });
+var AuthInterceptor = /** @class */ (function () {
+    function AuthInterceptor() {
+    }
+    // intecept la requete que nous allons catch
+    AuthInterceptor.prototype.intercept = function (req, next) {
+        var token = localStorage.getItem('jwt');
+        if (token) {
+            // si on a un token on clone la requete pour lui passer le token
+            var authReq = req.clone({
+                // on set une key que lon appelle authorization avec notre token
+                headers: req.headers.set('authorization', token)
+            });
+            // return next.handle(req) permert l'execution de la requete
+            return next.handle(authReq);
+        }
+        else {
+            return next.handle(req);
+        }
+    };
+    return AuthInterceptor;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/share/layout/layout.module.ts":
 /*!***********************************************!*\
   !*** ./src/app/share/layout/layout.module.ts ***!
@@ -419,7 +579,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var MODULE = [_angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatInputModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCardModule"]];
+var MODULE = [_angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatInputModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatFormFieldModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCardModule"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatIconModule"]];
 var LayoutModule = /** @class */ (function () {
     function LayoutModule() {
     }
@@ -518,6 +678,67 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/share/services/user.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/share/services/user.service.ts ***!
+  \************************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+
+var UserService = /** @class */ (function () {
+    function UserService(http) {
+        this.http = http;
+        this.currentUser = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+    }
+    UserService.prototype.getCurentUser = function () {
+        var _this = this;
+        if (this.currentUser.value) {
+            console.log('currentUser=', this.currentUser);
+            return this.currentUser;
+        }
+        else {
+            // on fait un call http qui va nous permettre d'initialiser un user 
+            // nous on veut que le component pas seulement a linstant T mais tout le temps que
+            // ce soit ok
+            return this.http.get('/api/user/current').pipe(
+            // operateur tap recupere de l'information en entrée ca fait commme si le tap n'éxistait pas sans
+            //permet d'éxecuter du code sur information récupére
+            Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (user) {
+                _this.currentUser.next(user);
+            }), 
+            // switchmap récupere le user en entrée on a pas besoin de le mettre dans les parenthèses
+            // et return un nouvelle observable
+            Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(function () {
+                return _this.currentUser;
+            }));
+        }
+    };
+    UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], UserService);
+    return UserService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/share/topbar/topbar.component.css":
 /*!***************************************************!*\
   !*** ./src/app/share/topbar/topbar.component.css ***!
@@ -536,7 +757,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\r\n  <span class=\"link\" routerLink=\"/\">Mon Logo</span>\r\n  <span fxFlex=\"auto\"></span>\r\n   \r\n      <span *ngIf=\"!jwtToken.isAuthenticated\">\r\n    <span fxLayoutGap=\"15px\">\r\n       <span class=\"link\" routerLink=\"/signin\">Connexion</span>\r\n      <span class=\"link\" routerLink=\"/signup\">Inscription</span>\r\n    </span>\r\n      </span>\r\n      <span *ngIf=\"jwtToken.isAuthenticated\">\r\n      <span class=\"link\">Déconnexion</span>\r\n    </span>\r\n  </div>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar color=\"primary\" fxLayoutGap=\"15px\">\r\n  <span class=\"link\" routerLink=\"/\">Mon Logo</span>\r\n  <span fxFlex=\"auto\"></span>\r\n  <span *ngIf=\"!jwtToken.isAuthenticated\">\r\n    <span fxLayout=\"row\" fxLayoutGap=\"20px\" fxLayoutAlign=\"center center\">\r\n      <span class=\"link\" routerLink=\"/signin\">Connexion</span>\r\n       <span class=\"link\" routerLink=\"/signup\">Inscription</span>\r\n    </span>\r\n    </span>\r\n    <span *ngIf=\"jwtToken.isAuthenticated\" fxLayout=\"row\" fxLayoutGap=\"20px\" fxLayoutAlign=\"center center\">\r\n      <span class=\"link\" routerLink=\"/profile\" >Mon compte</span>\r\n      <mat-icon class=\"link\" (click)=\"logout()\">power_settings_new</mat-icon>\r\n    </span>\r\n</mat-toolbar>"
 
 /***/ }),
 
