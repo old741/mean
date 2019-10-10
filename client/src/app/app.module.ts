@@ -1,61 +1,33 @@
 // Module natifs
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from '@angular/forms';
 
 //Modules
-import { LayoutModule } from './share/layout/layout.module';
 import {  BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 // Component
 import { AppComponent } from './app.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { TopbarComponent } from './share/topbar/topbar.component';
-import { ProfileComponent } from './profile/profile.component';
+
 
 // routing
 import {APP_ROUTING } from './app.routing';
+import { CoreModule } from './share/modules/core.module';
 
-// services
-import { AuthService}  from "./share/services/auth.service";
-import { UserService } from './share/services/user.service';
 
-//guards
-import { AuthGuard } from './share/guards/auth.guard';
-
-//interceptors
-import { AuthInterceptor } from './share/interceptors/auth.interceptor';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomepageComponent,
-    SignupComponent,
-    SigninComponent,
-    TopbarComponent,
-    ProfileComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    LayoutModule,
+    CoreModule,
     RouterModule.forRoot(APP_ROUTING),
-    ReactiveFormsModule
+    
   ],
-  providers: [ 
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass:AuthInterceptor,
-      multi:true
-    },
-  AuthService,UserService,AuthGuard
-],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
