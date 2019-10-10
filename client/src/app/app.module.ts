@@ -14,8 +14,11 @@ import { AppComponent } from './app.component';
 import {APP_ROUTING } from './app.routing';
 import { CoreModule } from './share/modules/core.module';
 
-
-
+// NgRx
+import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { StoreModule } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,12 @@ import { CoreModule } from './share/modules/core.module';
     BrowserAnimationsModule,
     CoreModule,
     RouterModule.forRoot(APP_ROUTING),
+    StoreModule.forRoot(),
+    StoreDevtoolsModule.instrument({
+      name:Ngrx Photos,
+      logOnly: environment.production
+    }),
+    EffectsModule,
     
   ],
   bootstrap: [AppComponent]
