@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from 'src/app/components/homepage/homepage.component';
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
-import { TopbarComponent } from '../topbar/topbar.component';
+import { TopbarComponent } from '../components/topbar/topbar.component';
 
 // services
 import { UserService } from '../services/user.service';

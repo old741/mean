@@ -12,3 +12,27 @@ export const errorAuthSelector = createSelector(
         return authState.error
     }
 )
+export const tokenSelector = createSelector(authSelector, (authState: AuthState) => {
+    if(authState.token){
+        return authState.token
+    }else{
+        return null
+    }
+});
+
+export const isLoggedInSelector = createSelector(authSelector, (authState: AuthState) => {
+    if(authState.isLoggedIn){
+        return authState.isLoggedIn
+    }else{
+        return null
+    }
+});
+export const currentUserSelector = createSelector(authSelector, (authState: AuthState) => {
+    if(authState){
+        return authState.user
+    }else{
+        return null
+    }
+});
+
+

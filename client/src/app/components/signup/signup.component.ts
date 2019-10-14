@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/share/services/auth.service';
-import { User } from '../../share/models/user.model';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { AuthState } from 'src/app/share/store/reducers/auth.reducer';
 import { State } from 'src/app/share/store';
-import { TRY_SIGNUP, TrySignup } from 'src/app/share/store/actions/auth.actions';
+import { TrySignup } from 'src/app/share/store/actions/auth.actions';
 import { errorAuthSelector } from 'src/app/share/store/selectors/auth.selectors';
 import { Observable } from 'rxjs';
 @Component({
