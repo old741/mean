@@ -5,7 +5,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // components
-import { HomepageComponent } from 'src/app/components/homepage/homepage.component';
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
 import { TopbarComponent } from '../components/topbar/topbar.component';
@@ -23,7 +22,6 @@ import { RouterModule } from '@angular/router';
 
 // le core module doit contenir les services et guard 
 const COMPONENTS =[ 
-  HomepageComponent,
   SignupComponent,
   SigninComponent,
   TopbarComponent] 

@@ -24,14 +24,11 @@ export class TopbarComponent implements OnInit {
     //   this.jwtToken=jwtToken;
     // })
     this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
-
   }
 
-  
-  //   if(this.subscription){
-  //     this.subscription.unsubscribe();
-  //   }
-  // }
+  public applyFilter(filter:string):void{
+    console.log(filter)
+  }
 
   public logout():void{
   //this.authService.logout();
