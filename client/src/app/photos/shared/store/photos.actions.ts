@@ -1,19 +1,26 @@
-import { Action } from '@ngrx/store'
+import { Action } from '@ngrx/store';
+import { Photo } from '../models/photo.model';
+
 export enum PhotosActionTypes {
-    SetFilter ='[ photos ] set filter',
-    FetchPhotos='[ photos ] fetch photos',
-    FetchPhotosSuccess='[ photos ] fetch photos success'
-}
-export class SetFilter implements Action{
-    readonly type =PhotosActionTypes.SetFilter;
-    constructor(public payload:string){}
-}
-export class FetchPhotos implements Action{
-    readonly type =PhotosActionTypes.FetchPhotos;
-}
-export class FetchPhotosSuccess implements Action{
-    readonly type =PhotosActionTypes.FetchPhotosSuccess;
-    constructor(public payload:any[]){}
+  SetFilter = '[ Photos ] - Set filter',
+  FetchPhotos = '[ Photos ] - Fetch photos',
+  FetchPhotosSuccess = '[ Photos ] - Fetch photos success'
 }
 
-export type PhotosAction= SetFilter |FetchPhotos|FetchPhotosSuccess;
+export class SetFilter implements Action {
+  readonly type = PhotosActionTypes.SetFilter
+  constructor(public payload: string) {}
+}
+
+export class FetchPhotos implements Action {
+  readonly type = PhotosActionTypes.FetchPhotos;
+}
+
+export class FetchPhotosSuccess implements Action {
+  readonly type = PhotosActionTypes.FetchPhotosSuccess;
+  constructor(public payload: Photo[]) {}
+}
+
+export type PhotosActions = SetFilter |
+                          FetchPhotos |
+                          FetchPhotosSuccess ;

@@ -1,20 +1,30 @@
+import { PhotosActions, PhotosActionTypes } from './photos.actions';
+import { Photo } from '../models/photo.model';
 
-import { PhotosActionTypes, PhotosAction } from './photos.actions';
+export interface PhotosState {
+  photos: Photo[];
+  filter: string;
+};
 
-export  interface PhotosState{
-    photos:any[];
-    filter:string;
-}
+export const initialPhotosState: PhotosState = {
+  photos: null,
+  filter: null
+};
 
-
-export function photosReducer(state:PhotosState, action:PhotosAction):PhotosState{
-    switch(action.type){
-        case PhotosActionTypes.SetFilter :{
-            return{
-                ...state,
-                filter:action.payload
-            }
-        }
+export function photosReducer(state: PhotosState = initialPhotosState, action: PhotosActions): PhotosState {
+  switch (action.type) {
+    case PhotosActionTypes.SetFilter: {
+      return {
+        ...state,
+        filter: action.payload
+      }
     }
-    return state;
+    case PhotosActionTypes.FetchPhotosSuccess: {
+      return {
+        ...state,
+        photos: action.payload
+      }
+    }
+  }
+  return state;
 }

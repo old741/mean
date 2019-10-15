@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Photo } from './shared/models/photo.model';
+import { photosResultsSelector } from './shared/store/photos.selectors';
+import { PhotosState } from './shared/store/photos.reducers';
 
 @Component({
   selector: 'app-photos',
@@ -7,9 +12,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotosComponent implements OnInit {
 
-  constructor() { }
+  public photos$:Observable<Photo[]>;
+  constructor(private store:Store<PhotosState>) { }
 
   ngOnInit() {
+
+    this.photos$ = this.store.pipe(select(photosResultsSelector));
   }
 
 }
