@@ -50,6 +50,6 @@ describe('auth selectors' ,()=>{
     });
 
     it('should return error',()=> {
-        
+        fakeAuth.signup.and.throwError('error');
     });
 })
