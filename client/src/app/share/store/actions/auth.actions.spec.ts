@@ -21,7 +21,7 @@ describe('auth action',()=>{
             const payload = {
                message:'error'
             };
-            const action = new AuthActions.SigninError(payload);
+            const action = new AuthActions.SignupError(payload);
             expect({...action}).toEqual({
                 type: AuthActions.AuthActionTypes.SignupError,
                 payload //ou payload pouisque c'est la même clé

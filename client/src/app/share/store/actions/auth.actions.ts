@@ -47,7 +47,7 @@ export enum AuthActionTypes {
   }
   
   export class TryFetchCurrentUser implements Action {
-    readonly type = AuthActionTypes.TryFetchUser; // pas de payload car on va juste récupérer le token
+    readonly type = AuthActionTypes.TryFetchUser; 
   }
   
   export class SetCurrentUser implements Action {
