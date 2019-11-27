@@ -21,6 +21,9 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from '@ngrx/store';
 import { reducersMap } from './share/store';
 import { AuthEffects } from './share/store/effects/auth.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
+//import { environment} from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -33,10 +36,13 @@ import { AuthEffects } from './share/store/effects/auth.effects';
     RouterModule.forRoot(APP_ROUTING),
     StoreModule.forRoot(reducersMap),
     StoreDevtoolsModule.instrument({
-      name:'Ngrx Photos',
-      logOnly: environment.production // pour ne pas avoir acces en production au store sinon posez vous des questions ? 
+      name:'Ngrx Photos'//,
+      ,logOnly: environment.production
+
+     // logOnly: environments.production // pour ne pas avoir acces en production au store sinon posez vous des questions ? 
     }),
     EffectsModule.forRoot([AuthEffects]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     
   ],
   bootstrap: [AppComponent]
